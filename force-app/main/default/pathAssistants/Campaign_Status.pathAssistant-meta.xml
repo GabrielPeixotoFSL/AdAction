@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Campaign</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Campaign Status</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;If you haven&amp;#39;t already, please create/associate Campaign KPIs!&lt;/p&gt;</info>
+        <picklistValueName>Build In Progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <picklistValueName>Copy Check</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Other than entering Build Info, please also:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Create/Associate &lt;b&gt;at least one Campaign KPI&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Fill in invoicing contact info&lt;/b&gt; for easier invoicing at EOM&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Sales Setup</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

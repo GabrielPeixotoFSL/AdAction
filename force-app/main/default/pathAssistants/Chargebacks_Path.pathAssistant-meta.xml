@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Chargebacks Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Media_Approved_Chargeback_Amount__c</fieldNames>
+        <fieldNames>Media_Approved_Chargeback_Notes__c</fieldNames>
+        <info>&lt;p&gt;Invoicing and Account have been notified that this Chargeback is complete.&lt;/p&gt;</info>
+        <picklistValueName>Chargeback approved by client</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Requested_Chargeback_Amount__c</fieldNames>
+        <fieldNames>Media_Approved_Chargeback_Amount__c</fieldNames>
+        <fieldNames>Media_Approved_Chargeback_Notes__c</fieldNames>
+        <info>&lt;p&gt;This status is only for use when the Requested Amount does not match the Approved Amount. The difference between the two amounts requires us to go back to the Client before completing the chargeback and altering any invoices.&lt;/p&gt;</info>
+        <picklistValueName>Chargeback pending client approval</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Requested_Chargeback_Amount__c</fieldNames>
+        <fieldNames>Media_Approved_Chargeback_Amount__c</fieldNames>
+        <fieldNames>Media_Approved_Chargeback_Notes__c</fieldNames>
+        <info>&lt;p&gt;Once you fill in the Media Approved Chargeback Amount field, if it matches what was requested, the status will automatically be changed to Approved by Client and Invoicing and Accounting will be notified that the Chargeback is complete.&lt;/p&gt;</info>
+        <picklistValueName>Chargeback review complete - submit for client approval</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>AccountId</fieldNames>
+        <fieldNames>Requested_Chargeback_Amount__c</fieldNames>
+        <info>&lt;p&gt;You must fill in the Requested Chargeback Amount if your Chargeback requires review. If it does not require the usual review process, you can just fill in the Approved Amount further down on the right.&lt;/p&gt;</info>
+        <picklistValueName>New Request</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Chargebacks</recordTypeName>
+</PathAssistant>

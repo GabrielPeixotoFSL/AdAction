@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>6</activeVersionNumber>
+    <description>Send chargeback created and chargeback closed emails. emails specific to cases are in the flow that the cases are created</description>
+    <masterLabel>Case: Email Alerts</masterLabel>
+</FlowDefinition>

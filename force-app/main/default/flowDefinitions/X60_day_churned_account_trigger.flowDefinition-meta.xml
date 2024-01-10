@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Migrated from the: 60 day churned account trigger workflow rule
+Workflow rule description: After 60 days of 0 live campaigns, the Account Status is automatically changed to Churned&quot;</description>
+    <masterLabel>Account: 60 day churned account trigger</masterLabel>
+</FlowDefinition>

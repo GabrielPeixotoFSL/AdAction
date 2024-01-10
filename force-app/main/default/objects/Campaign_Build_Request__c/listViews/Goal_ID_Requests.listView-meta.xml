@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Goal_ID_Requests</fullName>
+    <columns>Request_ID__c</columns>
+    <columns>Sales_Rep__c</columns>
+    <columns>NAME</columns>
+    <columns>Advertiser__c</columns>
+    <columns>Goals__c</columns>
+    <columns>AdOps_Owner__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Goal ID Request</value>
+    </filters>
+    <label>Goal ID Requests</label>
+</ListView>

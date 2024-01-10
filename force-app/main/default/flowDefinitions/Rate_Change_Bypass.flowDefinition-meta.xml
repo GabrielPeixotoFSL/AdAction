@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>1</activeVersionNumber>
+    <description>Change bypass back to false once new rate is changed. so that rates aren&apos;t continuously bypassed</description>
+    <masterLabel>Campaign: Rate Change Bypass</masterLabel>
+</FlowDefinition>

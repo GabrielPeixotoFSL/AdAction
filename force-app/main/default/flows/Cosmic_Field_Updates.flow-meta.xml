@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Updates fields on campaigns that have Cosmic as media buy type.</description>
+    <formulas>
+        <name>DeviceTargeting</name>
+        <dataType>String</dataType>
+        <expression>LEFT(&quot;Android Phone;Android Tablet&quot;,100)</expression>
+    </formulas>
+    <interviewLabel>Cosmic Field Updates {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Campaign: Cosmic Field Updates</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Cosmic_Fields</name>
+        <label>Update Cosmic Fields</label>
+        <locationX>176</locationX>
+        <locationY>311</locationY>
+        <filters>
+            <field>Campaign_Media_Buy_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Cosmic Rewards</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Device_Targeting__c</field>
+            <value>
+                <elementReference>DeviceTargeting</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Operating_System__c</field>
+            <value>
+                <stringValue>Android</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Cosmic_Fields</targetReference>
+        </connector>
+        <filters>
+            <field>Campaign_Media_Buy_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Cosmic Rewards</stringValue>
+            </value>
+        </filters>
+        <object>Campaign</object>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

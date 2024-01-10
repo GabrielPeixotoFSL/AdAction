@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>2</activeVersionNumber>
+    <description>TImestamps the ownership transferred from queue field when a case moved from a queue to a user, this is used to determine how long it takes a user to close a case.</description>
+    <masterLabel>Case RT: Timestamp ownership change from Queue to User</masterLabel>
+</FlowDefinition>

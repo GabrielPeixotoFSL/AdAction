@@ -1,0 +1,12 @@
+<!--
+    Created by: Greg Hacic
+    Last Update: 10 December 2018 by Greg Hacic
+    Questions?: greg@ities.co
+    
+    Notes:
+        - redirects the User to the campaignBudget.page
+-->
+<apex:page action="{!redirectToPage}" extensions="campaignBudgetRedirect" standardController="Campaign">
+    <apex:sectionHeader title="Campaign" subtitle="Redirect"></apex:sectionHeader>
+    <apex:pageMessages ></apex:pageMessages>
+</apex:page>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>If_assigning_to_AM_fields_are_necessary</fullName>
+    <active>false</active>
+    <description>If Sales is assigning an account over to Sarah, then all fields must be filled in</description>
+    <errorConditionFormula>AND (   New_Owner__r.X18_Digit_ID__c  = &quot;00531000007sMqLAAU&quot;,
+OR (
+ISBLANK (  Comments__c ),
+ISBLANK (  Average_Monthly_Run_Rate__c),
+ISBLANK ( Credit_Limit__c ), 
+ISBLANK ( TEXT ( Invoice_Frequency__c  )),
+ISBLANK ( Cross_Sell_Opportunities__c ), 
+ISBLANK( TEXT (Communication_Frequency__c )),
+ISBLANK ( TEXT ( Handover_Type__c )),
+At_least_one_payment_received__c = FALSE, 
+IO_Attached_to_Account__c  = FALSE,
+No_outstanding_tracking_issues__c  = FALSE
+))
+&amp;&amp;
+$CustomMetadata.Automation_Toggle__mdt.AutomationActive.ValidationRule__c = TRUE</errorConditionFormula>
+    <errorMessage>All checkboxes must be checked and fields must be entered before assigning over to AM team.</errorMessage>
+</ValidationRule>

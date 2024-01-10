@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>22</activeVersionNumber>
+    <description>Overrides assignment rules for some net new cases, assigns some to individuals, and some to a queue based on decision criteria.</description>
+    <masterLabel>Case: Assign New Cases to Media Owner</masterLabel>
+</FlowDefinition>

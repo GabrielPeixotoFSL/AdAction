@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Affiliate_Account_Handovers</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>HO_Advertiser_ID__c</columns>
+    <columns>New_Owner__c</columns>
+    <columns>Previous_Account_Owner__c</columns>
+    <columns>Handover_Effective_Date__c</columns>
+    <columns>Account_Created_By__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Account_Type__c</field>
+        <operation>contains</operation>
+        <value>Affiliate</value>
+    </filters>
+    <label>Affiliate Account Handovers</label>
+</ListView>

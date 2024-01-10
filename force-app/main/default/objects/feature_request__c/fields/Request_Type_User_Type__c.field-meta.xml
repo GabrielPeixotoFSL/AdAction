@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Type_User_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Request Type (User Type)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Advertiser use case</fullName>
+                <default>false</default>
+                <label>Advertiser use case</label>
+            </value>
+            <value>
+                <fullName>Publisher use case</fullName>
+                <default>false</default>
+                <label>Publisher use case</label>
+            </value>
+            <value>
+                <fullName>Internal use case</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Internal use case</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

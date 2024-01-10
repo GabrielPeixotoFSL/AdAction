@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>4</activeVersionNumber>
+    <description>Closes out rate change cases if rate change successful if true, part of the rate change automation</description>
+    <masterLabel>Campaign: Rate Change Successful</masterLabel>
+</FlowDefinition>

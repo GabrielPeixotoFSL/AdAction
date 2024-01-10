@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category_of_Request__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Category of Request</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AdOps &amp; Campaign Related</fullName>
+                <default>false</default>
+                <label>AdOps &amp; Campaign-Related</label>
+            </value>
+            <value>
+                <fullName>Dashboard &amp; Report Related</fullName>
+                <default>false</default>
+                <label>Dashboard &amp; Reporting-Related</label>
+            </value>
+            <value>
+                <fullName>Invoice &amp; Accounting Related</fullName>
+                <default>false</default>
+                <label>Invoicing-Related</label>
+            </value>
+            <value>
+                <fullName>Product &amp; Integration Related</fullName>
+                <default>false</default>
+                <label>Product &amp; Integration-Related</label>
+            </value>
+            <value>
+                <fullName>Compliance &amp; Fraud Related</fullName>
+                <default>false</default>
+                <label>Compliance-Related</label>
+            </value>
+            <value>
+                <fullName>Marketing &amp; Design Related</fullName>
+                <default>false</default>
+                <label>Marketing-Related</label>
+            </value>
+            <value>
+                <fullName>None of the above</fullName>
+                <default>false</default>
+                <label>None of the above</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

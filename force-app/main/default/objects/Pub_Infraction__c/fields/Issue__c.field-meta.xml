@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Issue__c</fullName>
+    <externalId>false</externalId>
+    <label>Issue</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Rebrokering</fullName>
+                <default>false</default>
+                <label>Rebrokering</label>
+            </value>
+            <value>
+                <fullName>Click Fraud</fullName>
+                <default>false</default>
+                <label>Click Fraud</label>
+            </value>
+            <value>
+                <fullName>CTI</fullName>
+                <default>false</default>
+                <label>CTI</label>
+            </value>
+            <value>
+                <fullName>IP/Bot</fullName>
+                <default>false</default>
+                <label>IP/Bot</label>
+            </value>
+            <value>
+                <fullName>Retention/Quality</fullName>
+                <default>false</default>
+                <label>Retention/Quality</label>
+            </value>
+            <value>
+                <fullName>Blacklist/Audit</fullName>
+                <default>false</default>
+                <label>Blacklist/Audit</label>
+            </value>
+            <value>
+                <fullName>Click Spike</fullName>
+                <default>false</default>
+                <label>Click Spike</label>
+            </value>
+            <value>
+                <fullName>Risk Assessment</fullName>
+                <default>false</default>
+                <label>Risk Assessment</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Ad Stacking</fullName>
+                <default>false</default>
+                <label>Ad Stacking</label>
+            </value>
+            <value>
+                <fullName>Distribution Outlier</fullName>
+                <default>false</default>
+                <label>Distribution Outlier</label>
+            </value>
+            <value>
+                <fullName>Incent</fullName>
+                <default>false</default>
+                <label>Incent</label>
+            </value>
+            <value>
+                <fullName>SDK Spoofing</fullName>
+                <default>false</default>
+                <label>SDK Spoofing</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

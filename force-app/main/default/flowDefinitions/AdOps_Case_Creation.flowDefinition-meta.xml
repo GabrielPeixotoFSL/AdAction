@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>70</activeVersionNumber>
+    <description>This is the master flow for campaign case creation, it is conditioned upon changes to status, and fields in the campaign record, it creates cases based on the changes to the campaigns record. Also controls the campaign active checkbox</description>
+    <masterLabel>Campaign: AdOps Case Creation</masterLabel>
+</FlowDefinition>

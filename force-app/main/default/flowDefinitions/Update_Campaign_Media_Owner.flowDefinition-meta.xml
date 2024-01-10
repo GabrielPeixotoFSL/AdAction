@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>14</activeVersionNumber>
+    <description>Updates Campaign Media Owner field based on campaign media buy type, and direct/indirect if media owner on acct is null</description>
+    <masterLabel>Campaign: Update Campaign Owners</masterLabel>
+</FlowDefinition>

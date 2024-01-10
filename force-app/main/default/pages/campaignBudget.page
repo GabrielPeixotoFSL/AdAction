@@ -1,0 +1,692 @@
+<apex:page applyBodyTag="false" applyHtmlTag="false" docType="html-5.0" extensions="campaignBudget" lightningStyleSheets="true" showHeader="false" standardController="Opportunity">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<!--
+    Created by: Greg Hacic
+    Last Update: 22 March 2019 by Greg Hacic
+    Questions?: greg@ities.co
+    
+    Notes:
+        - Lightning interface for campaign budget logic
+-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Campaign Budget Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <apex:slds /><!-- Salesforce Lightning Design System Stylesheet -->
+    <apex:includeScript value="/soap/ajax/45.0/connection.js"></apex:includeScript>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+
+</style>
+<script language="JavaScript" type="text/javascript">
+sforce.connection.sessionId = "{!$Api.Session_ID}"; //this variable is required so that the visualforce page can properly communicate with the API
+</script>
+</head>
+<body>
+    <apex:pageMessages ></apex:pageMessages>
+    <apex:form >
+    <apex:actionFunction name="refreshListing" action="{!runLogic}" reRender="recordsPanelIsWon,noRecordPanelIsNotWon,noRecordPanelIsWon" status="requestStatus"/>
+    <div class="slds-scope">
+        <div class="slds-box">
+            <article class="slds-card">
+                <div class="slds-card__header slds-grid">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-campaign" title="campaign">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#campaign"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Campaign Budgets</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <a href="{!URLFOR($Action.Opportunity.View, Opportunity.Id)}" class="slds-card__header-link slds-truncate" title="Campaign Budgets">
+                                    <span>Campaign Budgets: {!Opportunity.Name}</span>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="slds-no-flex">
+                            <!-- <button class="slds-button slds-button_neutral">New</button>-->
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body">
+                    <apex:actionStatus id="requestStatus">
+                        <apex:facet name="start">
+                            <apex:image url="/img/loading.gif" alt=" Loading... "></apex:image>
+                        </apex:facet>
+                        <apex:facet name="stop">
+                            <apex:outputPanel id="primaryPanel">
+                                <apex:outputPanel id="noRecordPanelIsWon" rendered="{!AND( campaignsSize < 1, Opportunity.isWon)}">
+                                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+                                        <span class="slds-assistive-text">info</span>
+                                        <h2>There are no Campaigns linked to this Opportunity yet.</h2>
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="noRecordPanelIsNotWon" rendered="{!NOT(Opportunity.isWon)}">
+                                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert">
+                                        <span class="slds-assistive-text">info</span>
+                                        <h2>The Opportunity has not been won yet.</h2>
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel id="recordsPanelIsWon" rendered="{!AND( campaignsSize > 0, Opportunity.isWon)}">
+                                    <div class="slds-p-bottom_x-small">
+                                        <table class="slds-table">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th class="slds-text-title_caps" scope="col">
+                                                        <div class="slds-truncate" title="Action">
+                                                            <input id="checkboxSelectAll" name="checkboxSelectAll" title="Select All Rows" type="checkbox" value=""/>
+                                                        </div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="Name">Name</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="HO Offer Id">HO Offer Id</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="Start Date">Start Date</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="Budget">Group</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="Budget">Total $</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="Conversions">Total #</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="dailyDollars">Daily $</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="dailyInstalls">Daily #</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="weeklyDollars">Weekly $</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="weeklyInstalls">Weekly #</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="monthlyDollars">Monthly $</div>
+                                                    </th>
+                                                    <th class="slds-text-title_caps slds-cell-wrap" scope="col">
+                                                        <div class="slds-truncate" title="monthlyInstalls">Monthly #</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!campaigns}" var="c" id="campaignlist">
+                                                    <tr class="slds-hint-parent">
+                                                        <th scope="row" class="slds-cell-wrap">
+                                                            <div class="slds-truncate">
+                                                                <input id="checkbox_{!c.Id}" name="checkbox_{!c.Id}" title="Select {!c.Name}" type="checkbox" value="{!c.Id}"/>
+                                                                <a href="#" class="modalselector" id="edit_{!c.Id}" data-toggle="modal" data-target="#editMultipleModal">Edit</a>
+                                                            </div>
+                                                        </th>
+                                                        <td data-label="Name" class="slds-cell-wrap">
+                                                            <div class="slds-truncate" title="{!c.Name}">
+                                                                <a href="{!URLFOR($Action.Campaign.View, c.Id)}">{!c.Name}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td data-label="HO Offer Id" class="slds-cell-wrap">
+                                                            <div class="slds-truncate" title="{!c.HO_Offer_ID__c}">{!c.HO_Offer_ID__c}</div>
+                                                        </td>
+                                                        <td data-label="Start Date" class="slds-cell-wrap">
+                                                            <div class="slds-truncate" title="{!c.StartDate}">
+                                                                <c:localeFormattedDate dateProvided="{!c.StartDate}"/>
+                                                            </div>
+                                                        </td>
+                                                        <td data-label="Group">
+                                                            <apex:inputField id="budgetgroup" onchange="quickUpdate('g', '{!c.Id}', '{!$Component.budgetgroup}', '{!c.Budget_Group__c}')" styleClass="slds-input" value="{!c.Budget_Group__c}"/>
+                                                        </td>
+                                                        <td data-label="Total $">
+                                                            <apex:inputField id="budgetamount" onchange="quickUpdate('b', '{!c.Id}', '{!$Component.budgetamount}', '{!c.Budget_Amount__c}')" styleClass="slds-input" value="{!c.Budget_Amount__c}"/>
+                                                        </td>
+                                                        <td data-label="Total Installs">
+                                                            <apex:inputField id="totalconversions" onchange="quickUpdate('tc', '{!c.Id}', '{!$Component.totalconversions}', '{!c.Total_Conversions__c}')" styleClass="slds-input" value="{!c.Total_Conversions__c}"/>
+                                                        </td>
+                                                        <td data-label="Daily $">
+                                                            <apex:inputField id="dailyDollars" onchange="quickUpdate('dd', '{!c.Id}', '{!$Component.dailyDollars}', '{!c.Daily__c}')" styleClass="slds-input" value="{!c.Daily__c}"/>
+                                                        </td>
+                                                        <td data-label="Daily Installs">
+                                                            <apex:inputField id="dailyInstalls" onchange="quickUpdate('dn', '{!c.Id}', '{!$Component.dailyInstalls}', '{!c.Daily_Installs__c}')" styleClass="slds-input" value="{!c.Daily_Installs__c}"/>
+                                                        </td>
+                                                        <td data-label="Weekly $">
+                                                            <apex:inputField id="weeklyDollars" onchange="quickUpdate('wd', '{!c.Id}', '{!$Component.weeklyDollars}', '{!c.Weekly__c}')" styleClass="slds-input" value="{!c.Weekly__c}"/>
+                                                        </td>
+                                                        <td data-label="Weekly Installs">
+                                                            <apex:inputField id="weeklyInstalls" onchange="quickUpdate('wn', '{!c.Id}', '{!$Component.weeklyInstalls}', '{!c.Weekly_Installs__c}')" styleClass="slds-input" value="{!c.Weekly_Installs__c}"/>
+                                                        </td>
+                                                        <td data-label="Monthly $">
+                                                            <apex:inputField id="monthlyDollars" onchange="quickUpdate('md', '{!c.Id}', '{!$Component.monthlyDollars}', '{!c.Monthly__c}')" styleClass="slds-input" value="{!c.Monthly__c}"/>
+                                                        </td>
+                                                        <td data-label="Monthly Installs">
+                                                            <apex:inputField id="monthlyInstalls" onchange="quickUpdate('mn', '{!c.Id}', '{!$Component.monthlyInstalls}', '{!c.Monthly_Installs__c}')" styleClass="slds-input" value="{!c.Monthly_Installs__c}"/>
+                                                        </td>
+                                                    </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+                                    </div>
+<script language="JavaScript" type="text/javascript">
+var pageTimer; //settimeout variable
+
+$(document).ready(function() {
+    //TOAST LOGIC: Begin
+    //closes the Success Toast message
+    $("#successToastCloseIcon").click(function(event) {
+        event.preventDefault(); //prevent the standard functionality
+        clearTimeout(pageTimer); //clear the timeout
+        updateDone("successToast"); //kill the toast message
+    });
+    
+    //closes the Error Toast message
+    $("#errorToastCloseIcon").click(function(event) {
+        event.preventDefault(); //prevent the standard functionality
+        clearTimeout(pageTimer); //clear the timeout
+        updateDone("errorToast"); //kill the toast message
+    });
+    //TOAST LOGIC: End
+    
+    //MODAL DIALOG LOGIC: Begin
+    //handles click of Edit link in table
+    $(".modalselector").click(function(e) {
+        e.preventDefault(); //prevent whatever was the default thing to do from happening
+        var recordId = e.target.id.split("_").pop(); //split the link id at the underscore and grab the string at the end, which is the record Id
+        var soql = sforce.connection.query("SELECT Budget_Amount__c, Budget_Group__c, Daily__c, Daily_Installs__c, Monthly__c, Monthly_Installs__c, Total_Conversions__c, Weekly__c, Weekly_Installs__c FROM Campaign WHERE Id = '"+recordId+"'"); //query for the current values of the record from which the modal is being accessed
+        //alert(sql);
+        var b, g, dd, dn, wd, wn, md, mn, tc; //variables for populating to modal dialog
+        if (soql.getBoolean("done") && soql.size > 0) { //if the query is done and there was at least one result
+            var recs = soql.getArray("records"); //grab the records returned in the query
+            b = dropDecimal(recs[0].Budget_Amount__c);
+            g = dropDecimal(recs[0].Budget_Group__c);
+            dd = dropDecimal(recs[0].Daily__c);
+            dn = dropDecimal(recs[0].Daily_Installs__c);
+            wd = dropDecimal(recs[0].Weekly__c);
+            wn = dropDecimal(recs[0].Weekly_Installs__c);
+            md = dropDecimal(recs[0].Monthly__c);
+            mn = dropDecimal(recs[0].Monthly_Installs__c);
+            tc = dropDecimal(recs[0].Total_Conversions__c);
+        }
+        $("#budget").val(b); //Budget_Amount__c
+        $("#conversions").val(tc); //Total_Conversions__c
+        $("#group").val(g); //Budget_Group__c
+        $("#dailyd").val(dd); //Daily__c
+        $("#dailyn").val(dn); //Daily_Installs__c
+        $("#weeklyd").val(wd); //Weekly__c
+        $("#weeklyn").val(wn); //Weekly_Installs__c
+        $("#monthlyd").val(md); //Monthly__c
+        $("#monthlyn").val(mn); //Monthly_Installs__c
+        $("#editMultipleModal").addClass("slds-fade-in-open");
+        $("#modalBackdrop").addClass("slds-backdrop_open");
+    });
+    
+    //prevents shit from closing until we say so
+    $(".slds-modal__close").click(function(e) {
+        e.preventDefault(); //prevent whatever was the default thing to do from happening
+        closeModalDialog(); //close the modal
+    });
+    
+    //click of cancel button from within modal
+    $("#cancelmodalbutton").click(function(e) {
+        e.preventDefault(); //prevent whatever was the default thing to do from happening
+        closeModalDialog(); //close the modal
+    });
+    
+    //click of save button from within modal
+    $("#savemodalbutton").click(function(e) {
+        e.preventDefault(); //prevent whatever was the default thing to do from happening
+        saveAllocation(); //save the data for the selected records
+        closeModalDialog(); //close the modal
+    });
+    
+    /*close modal when no longer in focus
+    $("#editMultipleModal").focusout(function() {
+        closeModalDialog(); //close the modal
+    });
+    */
+    //MODAL DIALOG LOGIC: End
+    
+    //CHECKBOX LOGIC: Begin
+    //checks all checkboxes
+    $("#checkboxSelectAll").click(function() { //onclick
+        $("input:checkbox").not(this).prop("checked", this.checked); //any input type=checkbox not checked should be checked
+    });
+    
+    //hide all of the edit links upon page load
+    $("a[id^='edit_']").each(function() { //for each anchor tag with an Id beginning with 'edit_'
+        $(this).hide(); //hide the link
+    });
+    
+    //maintains the checkboxSelectAll input checkbox based upon the status of each chockbox in the app
+    $("input:checkbox").change(function(event) { //if a checkbox is changed
+        //display or hide the edit link next to the checkbox
+        $("input:checkbox[id^='checkbox_']").each(function() { //for each checked checkbox with the Id beginning with 'checkbox_'
+            var recordId = $(this).prop("id").split("_").pop(); //id in the format of checkbox_XXXXXXXXXXXXXXX
+            if ($(this).is(":checked")) { //if the checkbox is checked
+                $("#edit_"+recordId).show(); //show the edit link
+            } else { //otherwise, must not be checked
+                $("#edit_"+recordId).hide(); //hide the edit link
+            }
+        });
+        if ($("input:checkbox[id^='checkbox_']").length == $("input:checkbox:checked[id^='checkbox_']").length) { //if the number of checkboxes is equal to the number checked
+            $("#checkboxSelectAll").prop("checked", true); //check the overall indicator
+        } else { //otherwise
+            $("#checkboxSelectAll").prop("checked", false); //uncheck the overall indicator
+        }
+    });
+    //CHECKBOX LOGIC: End
+});
+
+//closes the modal dialog
+function closeModalDialog() {
+    $("#editMultipleModal").removeClass("slds-fade-in-open"); //remove the slds-fade-in-open class from the editMultipleModal div
+    $("#modalBackdrop").removeClass("slds-backdrop_open"); //remove the slds-backdrop_open class from the modalBackdrop div
+}
+
+//removes special characters
+function stringToNumber(s) {
+    s = s.toString().replace(/\$|\,/g,''); //remove comma and dollar sign
+    if (isNaN(s)) { //if not a number
+        s = "0"; //set to zero
+    }
+    return s; //return the number
+}
+
+//returns null if value is not appropriate for the SOAP API
+function doubleForSOAP(s) {
+    var d = stringToNumber(s); //convert to a number
+    if (!d) { //if d is undefined, null, "", 0, NaN, or false
+        return null; //return null
+    } else { //otherwise, a value is presented
+        return d; //return the number
+    }
+}
+
+//removes the decimal from a double
+function dropDecimal(d) {
+    if (!d) { //if d is undefined, null, "", 0, NaN, or false
+        return null; //return null
+    } else { //otherwise
+        return d.split(".").shift(); //split the decimal at the . and return string from in front
+    }
+}
+
+//format as a number using comma every three digits
+function formatNumber(num) {
+    num = stringToNumber(num);
+    var sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    num = Math.floor(num/100).toString();
+    for (var i=0; i<Math.floor((num.length-(1+i))/3); i++) {
+        num = num.substring(0,num.length-(4*i+3))+','+num.substring(num.length-(4*i+3)); //add back comma
+    }
+    return (((sign)?'':'-') + num);
+}
+
+//saves record data for selected rows
+function saveAllocation() {
+    //grab the values provided from the modal
+    var budgetAmount = $("#budget").val(); //Budget_Amount__c
+    var totalConversions = $("#conversions").val(); //Total_Conversions__c
+    var budgetGroup = $("#group").val(); //Budget_Group__c
+    var dailyDollars = $("#dailyd").val(); //Daily__c
+    var dailyInstalls = $("#dailyn").val(); //Daily_Installs__c
+    var weeklyDollars = $("#weeklyd").val(); //Weekly__c
+    var weeklyInstalls = $("#weeklyn").val(); //Weekly_Installs__c
+    var monthlyDollars = $("#monthlyd").val(); //Monthly__c
+    var monthlyInstalls = $("#monthlyn").val(); //Monthly_Installs__c
+    var campaignIdArray = []; //array for holding all of the Campaign record Ids
+    var campaignArray = []; //array for holding all of the Campaign records
+    
+    //loop through all of the checked rows
+    $("input:checkbox:checked[id^='checkbox_']").each(function() { //for each checked checkbox with the Id beginning with 'checkbox_'
+        var recordId = $(this).prop("id").split("_").pop(); //id in the format of checkbox_XXXXXXXXXXXXXXX
+        campaignIdArray.push(recordId); //add the Id of the record to our array
+    });
+    if (campaignIdArray.length > 0) { //if there are values in our campaignIdArray array
+        for (var a = 0; a < campaignIdArray.length; a++) { //for all campaignIdArray elements
+            var campaign = new sforce.SObject("Campaign"); //new Campaignobject 
+            campaign.Id = campaignIdArray[a]; //set the record Id
+            campaign.Budget_Amount__c = doubleForSOAP(budgetAmount);
+            campaign.Budget_Group__c = stringToNumber(budgetGroup);
+            campaign.Daily__c = doubleForSOAP(dailyDollars);
+            campaign.Daily_Installs__c = doubleForSOAP(dailyInstalls);
+            campaign.Weekly__c = doubleForSOAP(weeklyDollars);
+            campaign.Weekly_Installs__c = doubleForSOAP(weeklyInstalls);
+            campaign.Monthly__c = doubleForSOAP(monthlyDollars);
+            campaign.Monthly_Installs__c = doubleForSOAP(monthlyInstalls);
+            campaign.Total_Conversions__c = doubleForSOAP(totalConversions);
+            campaignArray.push(campaign); //add the sobject to our array
+        }
+        //find any other records that were not checked but have the same budget group and, therefore, should be updated as well
+        //soql
+        //add to the array
+        try {
+            var updateRecords = sforce.connection.update(campaignArray); //push the updates
+            if (!updateRecords[0].getBoolean("success")) { //if the updates were not successful
+                //display the error from the update request result
+                $("#errorToastMessage").html("("+updateRecords[0].errors.statusCode+") "+updateRecords[0].errors.message);
+                $("#errorToast").removeClass("slds-hidden");
+                pageTimer = setTimeout("updateDone('errorToast')", 15000); //set timeout so toast will disappear
+            } else { //otherwise, no errors
+                $("#successToastMessage").html("You updated "+formatNumber(campaignIdArray.length)+" campaign(s).");
+                $("#successToast").removeClass("slds-hidden");
+                pageTimer = setTimeout("updateDone('successToast')", 1500); //set timeout so toast will disappear
+                refreshListing(); //refresh the page...
+            }
+        } catch(err) {
+            //display the error from the try
+            $("#errorToastMessage").html(err.faultstring);
+            $("#errorToast").removeClass("slds-hidden");
+            pageTimer = setTimeout("updateDone('errorToast')", 15000); //set timeout so toast will disappear
+        }
+    } else { //otherwise, no selection
+        $("#errorToastMessage").html("You need to select at least one row.");
+        $("#errorToast").removeClass("slds-hidden");
+        pageTimer = setTimeout("updateDone('errorToast')", 5000); //set timeout so toast will disappear
+    }
+}
+
+//allows for editing and saving of record details in real-time
+function quickUpdate(field, id, elementId, original) {
+    var newValue = document.getElementById(elementId).value; //grabs the value of the element from the page
+    var campaignArray = []; //array for all of the Campaign records that re to be updated
+    var error_text = ""; //error messsaging variable
+    if (newValue == "") { //if we didn't find an element within the page DOM by the elementId
+        newValue = null; //denote null
+    }
+    var c = new sforce.SObject("Campaign"); //new Campaign sobject
+    c.Id = id; //set the Id of the record
+    if (field == "g") { //if designation is g we are changing the Group
+        c.Budget_Group__c = newValue;
+        //query for another record with the same group number and populate this record with those same values
+        if (newValue > 0) { //as long as the new budget group is not null
+            var soql = sforce.connection.query("SELECT Budget_Amount__c, Budget_Group__c, Daily__c, Daily_Installs__c, Id, Monthly__c, Monthly_Installs__c, Total_Conversions__c, Weekly__c, Weekly_Installs__c FROM Campaign WHERE Related_Opportunity__c  = '{!Opportunity.Id}' AND Id != '"+id+"' AND Budget_Group__c = "+newValue); //query
+            if (soql.getBoolean("done") && soql.size > 0) { //if the query is done and there was at least one result
+                var records = soql.getArray("records"); //grab the records returned in the query
+                c.Budget_Amount__c = records[0].Budget_Amount__c;
+                c.Daily__c = records[0].Daily__c;
+                c.Daily_Installs__c = records[0].Daily_Installs__c;
+                c.Weekly__c = records[0].Weekly__c;
+                c.Weekly_Installs__c = records[0].Weekly_Installs__c;
+                c.Monthly__c = records[0].Monthly__c;
+                c.Monthly_Installs__c = records[0].Monthly_Installs__c;
+                c.Total_Conversions__c = records[0].Total_Conversions__c;
+            }
+        }
+        campaignArray.push(c); //add the Campaign to our array
+    } else { //otherwise, we are not changing group designation
+        if (field == "b") {
+            c.Budget_Amount__c = newValue;
+        } else if (field == "dd") {
+            c.Daily__c = newValue;
+        } else if (field == "dn") {
+            c.Daily_Installs__c = newValue;
+        } else if (field == "wd") {
+            c.Weekly__c = newValue;
+        } else if (field == "wn") {
+            c.Weekly_Installs__c = newValue;
+        } else if (field == "md") {
+            c.Monthly__c = newValue;
+        } else if (field == "mn") {
+            c.Monthly_Installs__c = newValue;
+        } else if (field == "tc") {
+            c.Total_Conversions__c = newValue;
+        }
+        campaignArray.push(c); //add the directly edited Campaign to our array
+        var q = sforce.connection.query("SELECT Budget_Group__c, Id FROM Campaign WHERE Id = '"+id+"'"); //query for the Budget_Group__c value of the record
+        if (q.getBoolean("done") && q.size > 0) { //if the query is done and there was at least one result
+            var recs = q.getArray("records"); //grab the records returned in the query
+            //query for all other records with the same group and populate the passed value
+            if (recs[0].Budget_Group__c > 0) { //if there is a budget group value
+                var soql = sforce.connection.query("SELECT Id FROM Campaign WHERE Related_Opportunity__c  = '{!Opportunity.Id}' AND Budget_Group__c = "+recs[0].Budget_Group__c); //query for the records with the same Group
+                if (soql.getBoolean("done") && soql.size > 0) { //if the query is done and there was at least one result
+                    var records = soql.getArray("records"); //grab the records returned in the query
+                    for (var a = 0; a < records.length; a++) { //for all records returned in the query
+                        var campaign = new sforce.SObject("Campaign"); //new Campaign object
+                        campaign.Id = records[a].Id; //associate the record Id being updated
+                        if (field == "b") {
+                            campaign.Budget_Amount__c = newValue;
+                        } else if (field == "dd") {
+                            campaign.Daily__c = newValue;
+                        } else if (field == "dn") {
+                            campaign.Daily_Installs__c = newValue;
+                        } else if (field == "wd") {
+                            campaign.Weekly__c = newValue;
+                        } else if (field == "wn") {
+                            campaign.Weekly_Installs__c = newValue;
+                        } else if (field == "md") {
+                            campaign.Monthly__c = newValue;
+                        } else if (field == "mn") {
+                            campaign.Monthly_Installs__c = newValue;
+                        } else if (field == "tc") {
+                            campaign.Total_Conversions__c = newValue;
+                        }
+                        campaignArray.push(campaign); //add the Campaign to our array
+                    }
+                }
+            }
+        }
+    }
+    
+    try {
+        var updateRecord = sforce.connection.update(campaignArray); //pass the update to the API
+        if (updateRecord[0].getBoolean("success")) { //if successful
+            $("#successToastMessage").html("Changes saved.");
+            $("#successToast").removeClass("slds-hidden");
+            pageTimer = setTimeout("updateDone('successToast')", 1500); //set timeout so toast will disappear
+            refreshListing(); //refresh the page...
+        } else { //not successful
+            error_text = updateRecord[0].errors.message; //grab the message
+        }
+        if (error_text != "") { //if there is an error
+            document.getElementById(elementId).value = original; //reset the submitted value
+            $("#errorToastMessage").html(error_text);
+            $("#errorToast").removeClass("slds-hidden");
+            pageTimer = setTimeout("updateDone('errorToast')", 5000); //set timeout so toast will disappear
+        }
+    } catch(err) {
+        //display the error from the try
+        document.getElementById(elementId).value = original; //reset the submitted value
+        $("#errorToastMessage").html(err.faultstring);
+        $("#errorToast").removeClass("slds-hidden");
+        pageTimer = setTimeout("updateDone('errorToast')", 15000); //set timeout so toast will disappear
+    }
+}
+
+//allows for display of update but hides div after a few seconds
+function updateDone(elementId) {
+    $("#"+elementId).addClass("slds-hidden"); //add back the slds-hidden class
+}
+</script>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </apex:facet>
+                    </apex:actionStatus>
+                </div>
+            </article>
+        </div>
+        <div class="demo-only slds-hidden" style="height: 4rem;" id="errorToast">
+            <div class="slds-notify_container">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                    <span class="slds-assistive-text">error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="error">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#error" />
+                        </svg>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small" id="errorToastMessage">You need to select at least one row.</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" id="errorToastCloseIcon" title="Close">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="demo-only slds-hidden" style="height: 4rem;" id="successToast">
+            <div class="slds-notify_container">
+                <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+                    <span class="slds-assistive-text">success</span>
+                    <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="success">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#success" />
+                        </svg>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small" id="successToastMessage">Great! Well done.</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" id="successToastCloseIcon" title="Close">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="" style="">
+            <section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal" id="editMultipleModal" role="dialog" tabindex="-1">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header slds-modal__header_empty">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <!--<h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Modal Header</h2>-->
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-form" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="group">Group</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="group" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="budget">Total $</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="budget" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="conversions">Total #</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="conversions" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="dailyd">Daily $</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="dailyd" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="dailyn">Daily #</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="dailyn" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="weeklyd">Weekly $</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="weeklyd" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="weeklyn">Weekly #</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="weeklyn" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="monthlyd">Monthly $</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="monthlyd" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_stacked slds-is-editing">
+                                                <label class="slds-form-element__label" for="monthlyn">Monthly #</label>
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" id="monthlyn" class="slds-input" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" data-dismiss="modal" id="cancelmodalbutton">Cancel</button>
+                        <button class="slds-button slds-button_brand" id="savemodalbutton">Save</button>
+                    </footer>
+                </div>
+            </section>
+            <div id="modalBackdrop" class="slds-backdrop"></div>
+        </div>
+    </div>
+    </apex:form>
+</body>
+</html>
+</apex:page>
