@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Advertiser_Account_Handovers</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>HO_Advertiser_ID__c</columns>
+    <columns>New_Owner__c</columns>
+    <columns>Previous_Account_Owner__c</columns>
+    <columns>Handover_Effective_Date__c</columns>
+    <columns>Account_Created_Date__c</columns>
+    <columns>Account_Created_By__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Account_Type__c</field>
+        <operation>contains</operation>
+        <value>Advertiser</value>
+    </filters>
+    <filters>
+        <field>Handover_Effective_Date__c</field>
+        <operation>greaterOrEqual</operation>
+        <value>1/1/2021</value>
+    </filters>
+    <label>Advertiser Account Handovers</label>
+</ListView>

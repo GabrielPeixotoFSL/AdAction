@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Sales</fullName>
+    <columns>NAME</columns>
+    <columns>Advertiser__c</columns>
+    <columns>AdOps_Owner__c</columns>
+    <columns>Sales_Rep__c</columns>
+    <columns>Status__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Pending - Sales</value>
+    </filters>
+    <label>Pending-Sales</label>
+</ListView>

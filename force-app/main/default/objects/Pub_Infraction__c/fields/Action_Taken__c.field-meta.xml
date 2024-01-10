@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Taken__c</fullName>
+    <externalId>false</externalId>
+    <label>Action Taken</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Banned source(s)</fullName>
+                <default>false</default>
+                <label>Banned source(s)</label>
+            </value>
+            <value>
+                <fullName>Banned publisher</fullName>
+                <default>false</default>
+                <label>Banned publisher</label>
+            </value>
+            <value>
+                <fullName>Paused publisher temporarily</fullName>
+                <default>false</default>
+                <label>Paused publisher temporarily</label>
+            </value>
+            <value>
+                <fullName>Warning to publisher</fullName>
+                <default>false</default>
+                <label>Warning to publisher</label>
+            </value>
+            <value>
+                <fullName>Chargeback</fullName>
+                <default>false</default>
+                <label>Chargeback</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

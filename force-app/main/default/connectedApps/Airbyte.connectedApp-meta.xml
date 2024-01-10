@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>nkaladharan@adaction.com</contactEmail>
+    <label>Airbyte</label>
+    <oauthConfig>
+        <callbackUrl>https://login.salesforce.com/</callbackUrl>
+        <consumerKey>3MVG9A2kN3Bn17htpAIQ18l5KaiIZF0v1ofuWf8x7Mnjiftff6AuBbkndlWr48cjfE3iOBcY.Rt_NMmK1YNJh</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <scopes>Api</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <profileName>Airbyte Read Only User</profileName>
+</ConnectedApp>

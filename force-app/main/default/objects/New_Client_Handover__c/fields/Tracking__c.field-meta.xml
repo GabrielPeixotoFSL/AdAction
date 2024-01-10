@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tracking__c</fullName>
+    <externalId>false</externalId>
+    <label>Tracking</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MobileAppTracking</fullName>
+                <default>false</default>
+                <label>MobileAppTracking</label>
+            </value>
+            <value>
+                <fullName>AD-X Tracking</fullName>
+                <default>false</default>
+                <label>AD-X Tracking</label>
+            </value>
+            <value>
+                <fullName>Appsflyer</fullName>
+                <default>false</default>
+                <label>Appsflyer</label>
+            </value>
+            <value>
+                <fullName>Kochava</fullName>
+                <default>false</default>
+                <label>Kochava</label>
+            </value>
+            <value>
+                <fullName>In-Mobi</fullName>
+                <default>false</default>
+                <label>In-Mobi</label>
+            </value>
+            <value>
+                <fullName>Adjust</fullName>
+                <default>false</default>
+                <label>Adjust</label>
+            </value>
+            <value>
+                <fullName>S2S (Internal Tracking)</fullName>
+                <default>false</default>
+                <label>S2S (Internal Tracking)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

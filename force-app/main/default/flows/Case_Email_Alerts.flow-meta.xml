@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Chargeback_Finished_Email_Notification</name>
+        <label>Chargeback Finished Email Notification</label>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
+        <actionName>Case.Chargeback_Finished</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>New_Chargeback_Case_Notification</name>
+        <label>New Chargeback Case Notification</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <actionName>Case.Chargeback_Created</actionName>
+        <actionType>emailAlert</actionType>
+        <inputParameters>
+            <name>SObjectRowId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <decisions>
+        <name>Run_Flow</name>
+        <label>Run Flow?</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Automation_On</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Automation_Toggle.Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>What_Type_of_Case</targetReference>
+            </connector>
+            <label>Automation On</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>What_Type_of_Case</name>
+        <label>What Type of Case?</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>New_Chargeback_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.RecordTypeID_Case_Chargeback</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>New Request</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_Chargeback_Case_Notification</targetReference>
+            </connector>
+            <label>New Chargeback Email</label>
+        </rules>
+        <rules>
+            <name>Finished_Chargeback_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.RecordTypeID_Case_Chargeback</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Chargeback review complete - submit for client approval</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Chargeback_Finished_Email_Notification</targetReference>
+            </connector>
+            <label>Finished Chargeback Email</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Case: Email Alerts {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case: Email Alerts</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Automation_Toggle</name>
+        <label>Get Automation Toggle</label>
+        <locationX>578</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Run_Flow</targetReference>
+        </connector>
+        <filters>
+            <field>Flows__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Automation_Toggle__mdt</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>452</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Automation_Toggle</targetReference>
+        </connector>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>0125A000001Nb8xQAC</stringValue>
+            </value>
+        </filters>
+        <object>Case</object>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

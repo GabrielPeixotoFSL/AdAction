@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Account__c</columns>
+    <columns>Status__c</columns>
+    <columns>Our_Payout__c</columns>
+    <columns>Partner_Payout__c</columns>
+    <columns>Network_Daily_Caps__c</columns>
+    <columns>Category__c</columns>
+    <columns>AdAction_Offer_ID__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Campaigns</label>
+</ListView>

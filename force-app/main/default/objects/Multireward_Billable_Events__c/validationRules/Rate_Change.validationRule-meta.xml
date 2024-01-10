@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Rate_Change</fullName>
+    <active>true</active>
+    <description>Prevents users from putting now rate change in the incorrect field</description>
+    <errorConditionFormula>AND (
+ISCHANGED(Billable_Price_Per_Conversion__c),
+OR(
+$Profile.Name = &quot;Sales Team&quot;,
+$Profile.Name = &quot;Account Management&quot;,
+$Profile.Name = &quot;Sales Leadership&quot;))</errorConditionFormula>
+    <errorMessage>Please enter new rate in &quot;New Rate Adjustment field&quot;</errorMessage>
+</ValidationRule>

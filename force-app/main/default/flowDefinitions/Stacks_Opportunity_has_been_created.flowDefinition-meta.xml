@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>3</activeVersionNumber>
+    <description>sends an email when a stacks opportunity is created, in the future can be combined with the other stacks opp flow</description>
+    <masterLabel>Opportunity:Stacks Opportunity has been created</masterLabel>
+</FlowDefinition>

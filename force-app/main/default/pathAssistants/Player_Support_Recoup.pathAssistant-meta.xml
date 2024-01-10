@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Player Support Recoup</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Client_Approved_Revenue_Amount__c</fieldNames>
+        <fieldNames>Client_Approved_Notes__c</fieldNames>
+        <picklistValueName>Approved by Client</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Player_Support_Revenue_Recoup</recordTypeName>
+</PathAssistant>

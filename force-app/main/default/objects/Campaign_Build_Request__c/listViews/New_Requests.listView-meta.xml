@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New_Requests</fullName>
+    <columns>Request_ID__c</columns>
+    <columns>NAME</columns>
+    <columns>Advertiser__c</columns>
+    <columns>Sales_Rep__c</columns>
+    <columns>Platform__c</columns>
+    <columns>Traffic__c</columns>
+    <columns>Geo_s__c</columns>
+    <columns>CPI__c</columns>
+    <columns>Goals__c</columns>
+    <columns>Status__c</columns>
+    <columns>AdOps_Owner__c</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>,New Request</value>
+    </filters>
+    <label>New Requests</label>
+</ListView>

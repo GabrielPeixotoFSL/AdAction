@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Value_to_Company__c</fullName>
+    <externalId>false</externalId>
+    <label>Request Value to Adv or Pub</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Significant improvement in user engagement (adv)</fullName>
+                <default>false</default>
+                <label>Significant improvement in user engagement (adv)</label>
+            </value>
+            <value>
+                <fullName>Significant improvement in user LTV (adv)</fullName>
+                <default>false</default>
+                <label>Significant improvement in user LTV (adv)</label>
+            </value>
+            <value>
+                <fullName>Improvement in user experience with placement (pub)</fullName>
+                <default>false</default>
+                <label>Improvement in user experience with placement (pub)</label>
+            </value>
+            <value>
+                <fullName>Lessens integration burden i.e. time, resources (pub)</fullName>
+                <default>false</default>
+                <label>Lessens integration burden i.e. time, resources (pub)</label>
+            </value>
+            <value>
+                <fullName>Eases BI burden (analysis, data aggregation, etc for adv)</fullName>
+                <default>false</default>
+                <label>Eases BI burden (analysis, data aggregation, etc for adv)</label>
+            </value>
+            <value>
+                <fullName>Eases BI burden (analysis, data aggregation, etc for pub)</fullName>
+                <default>false</default>
+                <label>Eases BI burden (analysis, data aggregation, etc for pub)</label>
+            </value>
+            <value>
+                <fullName>Addresses targeting needs/requirements</fullName>
+                <default>false</default>
+                <label>Addresses targeting needs/requirements</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

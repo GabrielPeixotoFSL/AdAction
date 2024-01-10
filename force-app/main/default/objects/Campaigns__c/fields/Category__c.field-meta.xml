@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Android Apps</fullName>
+                <default>false</default>
+                <label>Android Apps</label>
+            </value>
+            <value>
+                <fullName>Android ID Required</fullName>
+                <default>false</default>
+                <label>Android ID Required</label>
+            </value>
+            <value>
+                <fullName>CPE/CPA</fullName>
+                <default>false</default>
+                <label>CPE/CPA</label>
+            </value>
+            <value>
+                <fullName>Google AID Required</fullName>
+                <default>false</default>
+                <label>Google AID Required</label>
+            </value>
+            <value>
+                <fullName>IDFA Required</fullName>
+                <default>false</default>
+                <label>IDFA Required</label>
+            </value>
+            <value>
+                <fullName>Incentive Campaign</fullName>
+                <default>false</default>
+                <label>Incentive Campaign</label>
+            </value>
+            <value>
+                <fullName>Incentive Lead Gen</fullName>
+                <default>false</default>
+                <label>Incentive Lead Gen</label>
+            </value>
+            <value>
+                <fullName>Incentive Mobile Apps</fullName>
+                <default>false</default>
+                <label>Incentive Mobile Apps</label>
+            </value>
+            <value>
+                <fullName>iOS Apps</fullName>
+                <default>false</default>
+                <label>iOS Apps</label>
+            </value>
+            <value>
+                <fullName>iPad Only</fullName>
+                <default>false</default>
+                <label>iPad Only</label>
+            </value>
+            <value>
+                <fullName>iPad Only Apps</fullName>
+                <default>false</default>
+                <label>iPad Only Apps</label>
+            </value>
+            <value>
+                <fullName>iPhone, iPod, iPad</fullName>
+                <default>false</default>
+                <label>iPhone, iPod, iPad</label>
+            </value>
+            <value>
+                <fullName>iPhone Only App</fullName>
+                <default>false</default>
+                <label>iPhone Only App</label>
+            </value>
+            <value>
+                <fullName>Mobile Lead Gen</fullName>
+                <default>false</default>
+                <label>Mobile Lead Gen</label>
+            </value>
+            <value>
+                <fullName>Paid App</fullName>
+                <default>false</default>
+                <label>Paid App</label>
+            </value>
+            <value>
+                <fullName>Reward Video</fullName>
+                <default>false</default>
+                <label>Reward Video</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>7</visibleLines>
+</CustomField>

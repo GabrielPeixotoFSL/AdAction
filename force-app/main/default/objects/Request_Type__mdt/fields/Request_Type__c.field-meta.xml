@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Type__c</fullName>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Request Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Add/Modify Invoicing Recipient(s) List</fullName>
+                <default>false</default>
+                <label>Add/Modify Invoicing Recipient(s) List</label>
+            </value>
+            <value>
+                <fullName>Add/Modify Client Custom Invoice Process</fullName>
+                <default>false</default>
+                <label>Add/Modify Client Custom Invoice Process</label>
+            </value>
+            <value>
+                <fullName>Submit a Chargeback Claim for Approval by Media</fullName>
+                <default>false</default>
+                <label>Submit a Chargeback Claim for Approval by Media</label>
+            </value>
+            <value>
+                <fullName>Update a Live Campaign</fullName>
+                <default>false</default>
+                <label>Update a Live Campaign</label>
+            </value>
+            <value>
+                <fullName>New Campaign Build Request</fullName>
+                <default>false</default>
+                <label>New Campaign Build Request</label>
+            </value>
+            <value>
+                <fullName>New Offer Shell Request</fullName>
+                <default>false</default>
+                <label>New Offer Shell Request</label>
+            </value>
+            <value>
+                <fullName>Relaunch a Paused Campaign</fullName>
+                <default>false</default>
+                <label>Relaunch a Paused Campaign</label>
+            </value>
+            <value>
+                <fullName>Media Mix Modification &amp; Feedback</fullName>
+                <default>false</default>
+                <label>Media Mix Modification &amp; Feedback</label>
+            </value>
+            <value>
+                <fullName>Tracking Support</fullName>
+                <default>false</default>
+                <label>Tracking Support</label>
+            </value>
+            <value>
+                <fullName>Client Spend Reporting Request</fullName>
+                <default>false</default>
+                <label>Client Spend Reporting Request</label>
+            </value>
+            <value>
+                <fullName>New Optimization Dashboard Request</fullName>
+                <default>false</default>
+                <label>New Optimization Dashboard Request</label>
+            </value>
+            <value>
+                <fullName>Pause/Reactivate a Dashboard</fullName>
+                <default>false</default>
+                <label>Pause/Reactivate a Dashboard</label>
+            </value>
+            <value>
+                <fullName>Modify a Live Dashboard</fullName>
+                <default>false</default>
+                <label>Modify a Live Dashboard</label>
+            </value>
+            <value>
+                <fullName>General Dashboard Support</fullName>
+                <default>false</default>
+                <label>General Dashboard Support</label>
+            </value>
+            <value>
+                <fullName>Transfer an Optimization Dashboard to CSC Team</fullName>
+                <default>false</default>
+                <label>Transfer an Optimization Dashboard to CSC Team</label>
+            </value>
+            <value>
+                <fullName>Creative Report Request</fullName>
+                <default>false</default>
+                <label>Creative Report Request</label>
+            </value>
+            <value>
+                <fullName>Add/Modify Client Blacklist Request</fullName>
+                <default>false</default>
+                <label>Add/Modify Client Blacklist Request</label>
+            </value>
+            <value>
+                <fullName>Compliance Sweep Request</fullName>
+                <default>false</default>
+                <label>Compliance Sweep Request</label>
+            </value>
+            <value>
+                <fullName>General COP Support</fullName>
+                <default>false</default>
+                <label>General COP Support</label>
+            </value>
+            <value>
+                <fullName>Product &amp; Integration Request</fullName>
+                <default>false</default>
+                <label>Product &amp; Integration Request</label>
+            </value>
+            <value>
+                <fullName>Marketing &amp; Creative Modification Request</fullName>
+                <default>false</default>
+                <label>Marketing &amp; Creative Modification Request</label>
+            </value>
+            <value>
+                <fullName>None of the above - custom request</fullName>
+                <default>false</default>
+                <label>None of the above - custom request</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

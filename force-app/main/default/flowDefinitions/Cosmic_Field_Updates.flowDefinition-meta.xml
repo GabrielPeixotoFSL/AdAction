@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>6</activeVersionNumber>
+    <description>Updates fields on campaigns that have Cosmic as media buy type. Should be consolidated in the future with other campaign flows.</description>
+    <masterLabel>Campaign: Cosmic Field Updates</masterLabel>
+</FlowDefinition>

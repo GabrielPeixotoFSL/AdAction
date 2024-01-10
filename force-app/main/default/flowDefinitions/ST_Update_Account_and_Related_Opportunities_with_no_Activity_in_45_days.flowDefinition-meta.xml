@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionNumber>10</activeVersionNumber>
+    <description>Updates any account that has no activity in the last 45 days to a status of open and removed internal demand owner, also changes all related opportunities to Closed Lost</description>
+    <masterLabel>Account ST: Update Account and Related Opportunities with no Activity in 45 days</masterLabel>
+</FlowDefinition>

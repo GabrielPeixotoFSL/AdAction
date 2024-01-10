@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Average_Run_Rate_greater_than_1k</fullName>
+    <active>true</active>
+    <errorConditionFormula>Average_Monthly_Run_Rate__c &lt; 1000
+&amp;&amp;
+$CustomMetadata.Automation_Toggle__mdt.AutomationActive.ValidationRule__c = TRUE</errorConditionFormula>
+    <errorMessage>Average Monthly Run Rate must exceed $1k</errorMessage>
+</ValidationRule>

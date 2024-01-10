@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Traffic__c</fullName>
+    <externalId>false</externalId>
+    <label>Traffic</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Incent</fullName>
+                <default>false</default>
+                <label>Incent</label>
+            </value>
+            <value>
+                <fullName>Non-Incent</fullName>
+                <default>false</default>
+                <label>Non-Incent</label>
+            </value>
+            <value>
+                <fullName>Reward Video</fullName>
+                <default>false</default>
+                <label>Reward Video</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

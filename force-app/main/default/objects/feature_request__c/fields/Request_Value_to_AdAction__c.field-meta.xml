@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Value_to_AdAction__c</fullName>
+    <externalId>false</externalId>
+    <label>Request Value to AdAction</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Gain access to new advertisers/publishers</fullName>
+                <default>false</default>
+                <label>Gain access to new advertisers/publishers</label>
+            </value>
+            <value>
+                <fullName>Feature request is supported by our competitors - competitive relevance</fullName>
+                <default>false</default>
+                <label>Feature request is supported by our competitors - competitive relevance</label>
+            </value>
+            <value>
+                <fullName>Unlock new revenue/scale from existing advertisers/publishers</fullName>
+                <default>false</default>
+                <label>Unlock new revenue/scale from existing advertisers/publishers</label>
+            </value>
+            <value>
+                <fullName>Inability to support will cause us to lose business</fullName>
+                <default>false</default>
+                <label>Inability to support will cause us to lose business</label>
+            </value>
+            <value>
+                <fullName>Supports transparency objective (internally or externally)</fullName>
+                <default>false</default>
+                <label>Supports transparency objective (internally or externally)</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

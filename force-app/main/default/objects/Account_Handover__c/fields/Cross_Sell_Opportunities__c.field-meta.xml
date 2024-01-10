@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cross_Sell_Opportunities__c</fullName>
+    <externalId>false</externalId>
+    <label>Cross Sell Opportunities</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Additional Geos</fullName>
+                <default>false</default>
+                <label>Additional Geos</label>
+            </value>
+            <value>
+                <fullName>Additional Apps</fullName>
+                <default>false</default>
+                <label>Additional Apps</label>
+            </value>
+            <value>
+                <fullName>Additional Operating System</fullName>
+                <default>false</default>
+                <label>Additional Operating System</label>
+            </value>
+            <value>
+                <fullName>Inventory - AdGem</fullName>
+                <default>false</default>
+                <label>Inventory - AdGem</label>
+            </value>
+            <value>
+                <fullName>Inventory - OG</fullName>
+                <default>false</default>
+                <label>Inventory - OG</label>
+            </value>
+            <value>
+                <fullName>Inventory - Network</fullName>
+                <default>false</default>
+                <label>Inventory - Network</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>6</visibleLines>
+</CustomField>

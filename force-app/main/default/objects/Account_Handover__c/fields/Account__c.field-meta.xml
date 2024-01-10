@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Account__c</fullName>
+    <description>Related Account</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Select the Account changing hands</inlineHelpText>
+    <label>Account</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <errorMessage>The account you&apos;re trying to hand off is not an affiliate or advertiser account. Please go to the Account and at the bottom of the page, change the Account Type to either an Affiliate or Advertiser account.</errorMessage>
+        <filterItems>
+            <field>Account.RecordType.Id</field>
+            <operation>equals</operation>
+            <value>0125A000001NaxUQAS</value>
+        </filterItems>
+        <filterItems>
+            <field>Account.RecordType.Id</field>
+            <operation>equals</operation>
+            <value>0125A000001NaxVQAS</value>
+        </filterItems>
+        <infoMessage>Look up the Acct that&apos;s changing hands</infoMessage>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Account Handovers</relationshipLabel>
+    <relationshipName>Account_Handovers</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
